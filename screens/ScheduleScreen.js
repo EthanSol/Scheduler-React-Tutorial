@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
 import CourseList from '../components/CourseList';
+import UserContext from '../UserContext';
+import CourseEditScreen from './CourseEditScreen';
 
 // Title Banner
 const Banner = ({title}) => (
@@ -9,12 +11,15 @@ const Banner = ({title}) => (
 );
 
 const ScheduleScreen = ({navigation}) => {
+  const user = useContext(UserContext);
+  const canEdit = user && user.role === 'admin';
+
   // Set course schedule state
   const [schedule, setSchedule] = useState({ title: '', courses: []});
 
   // Navigation func
   const view = (course) => {
-    navigation.navigate('CourseDetailScreen', { course });
+    navigation.navigate(canEdit? 'CourseEditScreen' : 'CourseDetailScreen', { course });
   };
 
   // Url source of courses
