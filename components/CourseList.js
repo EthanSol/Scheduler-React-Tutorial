@@ -14,7 +14,7 @@ const getCourseTerm = course => (
 
 
 // Dynamic courselist component
-const CourseList = ({courses}) => {
+const CourseList = ({courses, view}) => {
     // Initialize filtering state
     const [selectedTerm, setSelectedTerm] = useState('Fall');
     const termCourses = courses.filter(course => getCourseTerm(course) === selectedTerm);
@@ -23,7 +23,7 @@ const CourseList = ({courses}) => {
     return (
         <ScrollView>
             <TermSelector selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
-            <CourseSelector courses={termCourses} />
+            <CourseSelector courses={termCourses} view={view}/>
         </ScrollView>
     );
 };
