@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import Course from './Course';
+import CourseSelector from './CourseSelector';
 import TermSelector from './TermSelector';
 
 // Term filtering constants
@@ -16,28 +16,16 @@ const getCourseTerm = course => (
 // Dynamic courselist component
 const CourseList = ({courses}) => {
     // Initialize filtering state
-    const [selectedTerm, setSelectedTerm] = useState('Spring');
+    const [selectedTerm, setSelectedTerm] = useState('Fall');
     const termCourses = courses.filter(course => getCourseTerm(course) === selectedTerm);
 
     // Render
     return (
         <ScrollView>
             <TermSelector selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
-            <View style={styles.courseList}>
-                {termCourses.map(course => <Course key={course.id} course={course} />) }
-            </View>
+            <CourseSelector courses={termCourses} />
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    courseList: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-});
 
 export default CourseList
