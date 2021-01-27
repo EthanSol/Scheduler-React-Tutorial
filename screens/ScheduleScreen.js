@@ -28,7 +28,6 @@ const ScheduleScreen = ({navigation}) => {
     navigation.navigate(canEdit? 'CourseEditScreen' : 'CourseDetailScreen', { course });
   };
 
-  // Fetch data from db
   useEffect(() => {
     const db = firebase.database().ref();
     const handleData = snap => {
